@@ -501,6 +501,10 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.filebar[hidden] {
+  display: none !important;
+}
+
 @media (max-width: 900px) {
   /* Make list rows usable on mobile */
   .moves .row6 {
