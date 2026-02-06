@@ -1,0 +1,543 @@
+/* ============================
+   Custom Pokémon Font
+   ============================ */
+@font-face {
+  font-family: "PokemonRS";
+  src: url("resources/fonts/pokemon-rs.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ============================
+   Global Defaults
+   ============================ */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "PokemonRS", monospace;
+  font-size: 16px;
+  line-height: 1;
+  color: #2b2b2b;
+
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+button, input, textarea, select { font-family: inherit; }
+
+/* ============================
+   Spotify-style Background
+   ============================ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+
+  background-image: url("resources/images/backgrounds/route-101.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  filter: blur(14px);
+  transform: scale(1.12);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0.45) 70%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+}
+
+/* ============================
+   Page Layout (Two Columns)
+   ============================ */
+.layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.left-col {
+  display: grid;
+  place-items: center;
+  padding-left: 2vw;
+}
+
+/* Nudge right panel left a bit */
+.right-col {
+  display: grid;
+  place-items: center;
+  padding-right: 6vw;
+}
+
+/* ============================
+   MENU BORDER: Gen-3 Battle Textbox Style
+   Outer = light gray, inner = white
+   Thicker left/right than top/bottom
+   ============================ */
+.menu--rs {
+  height: 80vh;
+  width: 42vw;
+  min-width: 620px;
+  max-width: 980px;
+
+  position: relative;
+  border-radius: 26px;
+  background: #c0b8c8;
+
+  /* BORDER thickness (outer -> inner gap) */
+  padding: 8px 14px; /* top/bottom, left/right */
+
+  /* IMPORTANT: include padding inside the fixed height so both panels match */
+  box-sizing: border-box;
+
+  filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.18));
+}
+
+/* Inner rounded rectangle */
+.menu--rs::before {
+  content: "";
+  position: absolute;
+
+  /* Uneven inset: thicker sides, thinner top/bottom */
+  top: 6px;
+  bottom: 6px;
+  left: 12px;
+  right: 12px;
+
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.06);
+
+  z-index: 0;
+}
+
+.menu--rs > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Adds interior spacing so content doesn't hug the inner wall */
+.menu--rs {
+  /* keep your existing stuff above */
+  padding: 8px 14px;
+}
+
+/* This is the *content padding* inside the white inner panel */
+.menu--rs > * {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* ============================
+   Local CSV Loader Bar (Fallback)
+   ============================ */
+.filebar {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+#csvInput { display: none; }
+
+.filebtn {
+  display: inline-block;
+  width: fit-content;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.08);
+  cursor: pointer;
+  user-select: none;
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.filebtn:hover { background: rgba(0,0,0,0.12); }
+
+.filename {
+  font-size: 16px;
+  opacity: 0.75;
+  text-transform: uppercase;
+}
+
+/* ============================
+   Filter Bar
+   ============================ */
+.filterbar {
+  display: flex;
+  justify-content: center;   /* ✅ centers the buttons */
+  gap: 8px;
+
+  margin: 6px 0 14px;
+  padding: 0 10px 6px;       /* ✅ gives a little breathing room + helps centering */
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scrollbar-width: none;
+}
+.filterbar::-webkit-scrollbar { height: 0; }
+
+.filterbtn {
+  flex: 0 0 auto;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background: rgba(0,0,0,0.06);
+  cursor: pointer;
+  user-select: none;
+  text-transform: uppercase;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.filterbtn:hover { background: rgba(0,0,0,0.10); }
+
+.filterbtn.is-active {
+  border-color: rgba(0,0,0,0.18);
+  background: rgba(0,0,0,0.10);
+}
+
+/* ============================
+   Move List
+   ============================ */
+.moves {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  height: calc(100% - 0px);
+  overflow-y: auto;
+}
+.moves::-webkit-scrollbar { width: 0; height: 0; }
+
+.move {
+  display: block;
+  padding: 10px 10px;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.move:hover,
+.move:focus-visible {
+  border-color: #c11a1a;
+  background: rgba(0, 0, 0, 0.03);
+  outline: none;
+}
+
+.move.is-selected {
+  border-color: #c11a1a;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* 6 “columns” layout */
+.row6 {
+  display: grid;
+  grid-template-columns: 1.25fr 72px 72px 120px 160px 1.5fr;
+  align-items: center;
+  column-gap: 14px;
+}
+
+.cell { text-transform: uppercase; }
+
+.cell.name {
+  font-size: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cell.icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cell.icon img {
+  width: 48px;
+  height: 22px;
+  image-rendering: pixelated;
+}
+
+.placeholder-icon {
+  width: 48px;
+  height: 22px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.06);
+}
+
+.cell.level,
+.cell.cast,
+.cell.mini {
+  font-size: 18px;
+  opacity: 0.88;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================
+   D&D-style Spell Panel (Right)
+   ============================ */
+.spell {
+  height: 80vh;              /* same as left */
+  width: 70%;
+  min-width: 520px;
+  max-width: 900px;
+
+  position: relative;
+  border-radius: 26px;
+  background: #c0b8c8;
+
+  /* outer->inner gap */
+  padding: 8px 14px;
+
+  box-sizing: border-box;
+
+  filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.18));
+  overflow: hidden; /* keeps inner panel edges clean */
+}
+
+/* Inner white panel */
+.spell::before {
+  content: "";
+  position: absolute;
+
+  top: 6px;
+  bottom: 6px;
+  left: 12px;
+  right: 12px;
+
+  border-radius: 20px;
+  background: rgba(255,255,255,0.92);
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.06);
+
+  z-index: 0;
+}
+
+/* Content sits above inner panel */
+.spell > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Give the right panel content a little breathing room too */
+.spell__scroll {
+  height: 100%;
+  overflow: auto;
+  padding: 18px 18px; /* <-- key: space away from walls */
+  box-sizing: border-box;
+}
+
+.spell__scroll::-webkit-scrollbar { width: 8px; }
+.spell__scroll::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.18);
+  border-radius: 10px;
+}
+
+.spell__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #1c6ad6;
+  margin-bottom: 14px;
+}
+
+.spell__title {
+  font-size: 40px;
+  text-transform: none;
+}
+
+.spell__badges {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.06);
+}
+
+.badge img {
+  width: 34px;
+  height: 18px;
+  image-rendering: pixelated;
+}
+
+.badge__label {
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.spell__meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 22px;
+  margin: 12px 0 16px;
+  font-size: 20px;
+}
+
+.meta__row {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.meta__key {
+  opacity: 0.85;
+  text-transform: uppercase;
+}
+
+.spell__desc {
+  font-size: 20px;
+  line-height: 1.25;
+  white-space: pre-wrap;
+}
+
+.spell__empty {
+  font-size: 22px;
+  opacity: 0.75;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  text-transform: uppercase;
+}
+
+/* ============================
+   Headings: allow normal case
+   ============================ */
+h1, h2, h3, h4, h5, h6 {
+  text-transform: none;
+}
+
+/* ============================
+   Mobile layout: stack panels (top/bottom)
+   Applies to moves.html + abilities.html (anything using .layout/.left-col/.right-col)
+   ============================ */
+@media (max-width: 900px) {
+  /* Turn the 2-column layout into 1 column (top then bottom) */
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 14px;
+    padding: 12px;
+    box-sizing: border-box;
+  }
+
+  .left-col,
+  .right-col {
+    padding-left: 0;
+    padding-right: 0;
+    place-items: stretch; /* let the panels fill width */
+  }
+
+  /* Make both panels fit the screen width and remove desktop min widths */
+  .menu--rs,
+  .spell {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    height: auto;
+  }
+
+  /* Give the list panel a scrollable height, and the details panel a scrollable height */
+  .menu--rs {
+    height: 52vh;
+  }
+
+  .spell {
+    height: 36vh;
+  }
+
+  /* Your list rows are 6 columns — tighten them so they don't overflow as easily */
+  .row6 {
+    grid-template-columns: 1.2fr 56px 56px 74px 96px 1fr;
+    column-gap: 10px;
+  }
+
+  .cell.name { font-size: 20px; }
+  .cell.level,
+  .cell.cast,
+  .cell.mini { font-size: 16px; }
+
+  .cell.icon img {
+    width: 40px;
+    height: 18px;
+  }
+
+  /* Spell panel text scale down slightly for mobile */
+  .spell__title { font-size: 30px; }
+  .spell__meta { font-size: 18px; }
+  .spell__desc { font-size: 18px; line-height: 1.25; }
+
+  /* Let the filter bar wrap a bit nicer on mobile */
+  .filterbar {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 900px) {
+  /* Make list rows usable on mobile */
+  .moves .row6 {
+    grid-template-columns: 1fr 56px 56px; /* name + 2 icons */
+    column-gap: 10px;
+    align-items: center;
+  }
+
+  /* Moves page: hide the extra columns that crush the name on small screens */
+  .moves .cell.level,
+  .moves .cell.cast,
+  .moves .cell.mini {
+    display: none;
+  }
+
+  /* Give the name room + keep it left-aligned */
+  .moves .cell.name {
+    font-size: 20px;
+    text-align: left;
+    min-width: 0;            /* important for ellipsis inside grid */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Icons a bit smaller */
+  .moves .cell.icon img {
+    width: 40px;
+    height: 18px;
+  }
+
+  /* Abilities page specifically: it's basically just a name list */
+  #abilitiesList .row6 {
+    grid-template-columns: 1fr; /* just the name */
+  }
+
+  #abilitiesList .cell.mini {
+    display: none;
+  }
+}

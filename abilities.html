@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>5émon — Abilities</title>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Page-only: Top nav (copied style from your index approach) -->
+  <style>
+    .topnav{
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 22px;
+    }
+    .brand{
+      font-size: 28px;
+      text-transform: none;
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 2px 0 rgba(0,0,0,0.25);
+      letter-spacing: 0.5px;
+      user-select: none;
+    }
+    .navlinks{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .navlinks a{
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 18px;
+      color: rgba(255,255,255,0.92);
+      background: rgba(0,0,0,0.18);
+      border: 2px solid rgba(255,255,255,0.18);
+      padding: 8px 12px;
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+    }
+    .navlinks a:hover{
+      background: rgba(0,0,0,0.26);
+      border-color: rgba(255,255,255,0.26);
+    }
+    .navlinks a[aria-current="page"]{
+      background: rgba(0,0,0,0.28);
+      border-color: rgba(255,255,255,0.32);
+    }
+
+    /* Give layout room so it doesn't sit under the nav */
+    .layout{ min-height: calc(100vh - 62px); }
+  </style>
+</head>
+
+<body>
+  <nav class="topnav">
+    <div class="brand">5émon</div>
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="moves.html">Moves</a>
+      <a href="abilities.html" aria-current="page">Abilities</a>
+    </div>
+  </nav>
+
+  <div class="layout">
+    <!-- LEFT -->
+    <div class="left-col">
+      <div class="menu menu--rs" role="region" aria-label="Abilities menu">
+
+        <!-- Local-only loader UI (auto-hidden unless needed) -->
+        <div class="filebar" id="filebar" hidden>
+          <label class="filebtn" for="csvInput">LOAD CSV</label>
+          <input id="csvInput" type="file" accept=".csv,text/csv" />
+          <div class="filename" id="fileName">Select abilities.csv</div>
+        </div>
+
+        <ul class="moves" id="abilitiesList">
+          <li class="move" tabindex="0">
+            <div class="row6">
+              <div class="cell name">LOADING…</div>
+              <div class="cell mini">PLEASE WAIT</div>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-col">
+      <div class="spell" id="abilityPanel" aria-live="polite">
+        <div class="spell__empty">Select an ability to view details.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="abilities.js"></script>
+</body>
+</html>

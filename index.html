@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>5émon — Home</title>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Home-page-only styles (kept here so you don't have to touch styles.css) -->
+  <style>
+    /* Simple top nav */
+    .topnav{
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 22px;
+    }
+    .topnav__left{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+    }
+    .brand{
+      font-size: 28px;
+      text-transform: none;
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 2px 0 rgba(0,0,0,0.25);
+      letter-spacing: 0.5px;
+    }
+    .navlinks{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .navlinks a{
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 18px;
+      color: rgba(255,255,255,0.92);
+      background: rgba(0,0,0,0.18);
+      border: 2px solid rgba(255,255,255,0.18);
+      padding: 8px 12px;
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+    }
+    .navlinks a:hover{
+      background: rgba(0,0,0,0.26);
+      border-color: rgba(255,255,255,0.26);
+    }
+
+    /* Page layout */
+    .home-wrap{
+      position: relative;
+      z-index: 2;
+      min-height: calc(100vh - 62px);
+      display: grid;
+      place-items: center;
+      padding: 22px;
+    }
+
+    /* Gen-3 battle textbox style (outer gray + inner white) */
+    .home-panel{
+      width: min(980px, 92vw);
+      height: min(82vh, 920px);
+      position: relative;
+      border-radius: 26px;
+      background: #c0b8c8;
+      padding: 8px 14px;        /* top/bottom, left/right */
+      box-sizing: border-box;
+      filter: drop-shadow(0 6px 0 rgba(0,0,0,0.18));
+    }
+    .home-panel::before{
+      content:"";
+      position:absolute;
+      top: 6px;
+      bottom: 6px;
+      left: 12px;
+      right: 12px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,0.06);
+      z-index: 0;
+    }
+
+    .home-scroll{
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      overflow: auto;
+      padding: 18px 20px;
+      box-sizing: border-box;
+    }
+
+    .home-scroll::-webkit-scrollbar{ width: 8px; }
+    .home-scroll::-webkit-scrollbar-thumb{
+      background: rgba(0,0,0,0.18);
+      border-radius: 10px;
+    }
+
+    h1, h2{
+      margin: 0;
+      text-transform: none;
+      letter-spacing: 0.5px;
+      font-weight: normal;
+    }
+    h1{
+      font-size: 44px;
+      margin-bottom: 10px;
+    }
+    .subtitle{
+      font-size: 20px;
+      opacity: 0.85;
+      margin-bottom: 18px;
+      line-height: 1.25;
+      text-transform: none;
+      font-weight: normal;
+    }
+
+    .section{
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 3px solid #1c6ad6;  /* match your spell panel */
+    }
+
+    .section h2{
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .section p, .section li{
+      font-size: 20px;
+      line-height: 1.35;
+      margin: 0 0 10px 0;
+    }
+
+    .section ul{
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    /* Quick links */
+    .cta-row{
+      margin-top: 18px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .cta{
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 20px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.08);
+      border: 2px solid rgba(0,0,0,0.12);
+      color: #2b2b2b;
+      display: inline-block;
+    }
+    .cta:hover{
+      background: rgba(0,0,0,0.12);
+      border-color: rgba(0,0,0,0.18);
+    }
+
+    /* Small callout */
+    .callout{
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(28,106,214,0.08);
+      border: 2px solid rgba(28,106,214,0.18);
+      font-size: 18px;
+      line-height: 1.35;
+      text-transform: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="topnav">
+    <div class="topnav__left">
+      <div class="brand">5émon</div>
+      <div class="navlinks">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="moves.html">Moves</a>
+        <a href="abilities.html">Abilities</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="home-wrap">
+    <section class="home-panel" aria-label="5émon home">
+      <div class="home-scroll">
+
+        <h1>5émon Guidebook</h1>
+
+        <div class="section" id="what">
+          <h2>What is 5émon?</h2>
+          <p>
+            5émon is a Pokémon-themed homebrew ruleset built on Dungeons & Dragons 5th Edition, designed for players to play as Pokémon. 
+          </p>
+        </div>
+
+        <div class="section" id="why">
+          <h2>Design philosophy</h2>
+          <p>
+            5émon has two core design philosophy principles. Firstly, it is designed for players to play as pokémon. By this point, you may be wondering, &ldquo;why would I use this system when Poké5e exists and is seemingly superior?&rdquo; My first answer to that is: you SHOULD play Poké5e! And it is superior. If you haven't heard of it, I recommend going to check the system out at <a href="https://poke5e.app">poke5e.app</a> before proceeding here. The system is great and the resources are clear and beautifully presented. That being said, Poké5e was built for playing as trainers, each with a whole team of pokémon at their disposal, and while there are instructions for how to play as the pokémon themselves, it's not what the system was primarily balanced for. 5émon is balanced from the jump for single-pokémon characters and assumes that perspective at every level of play. 
+          </p>
+          <p>
+            Secondly, 5émon is D&amp;D 5e first and Pokémon second, mechanics-wise. Flavor-wise, it's Pokémon all day. But, in general, 5émon seeks to adapt vanilla D&amp;D 5e to work for a pokémon campaign setting with minimal changes. For example, D&amp;D 5e character levels range from 1-20, while pokémon levels range from 1-100 in the games. Instead of adapting a 1-100 level system to 5émon to make it feel more like Pokémon, we use the D&amp;D 5e 1-20 level system as-is. Similarly, instead of creating custom spell moves to keep pokémon moves as similar to how they function in the Pokémon games as they can be, classic D&amp;D 5e spells are reskinned whenever possible. Ember is Fire Bolt, Shadow Sneak is Misty Step, Fire Blast is Fireball, Wish is Wish, and so on. But more on moves later. 
+          </p>
+        </div>
+
+        <div class="section" id="moves">
+          <h2>Pokémon moves</h2>
+          <p>Moves are the most prominent change that 5émon has compared to vanilla D&amp;D 5e. Weapons and spells are both adapted as pokémon moves identified as &ldquo;weapon attack moves&rdquo; and &ldquo;spell moves&rdquo; and, instead of weapon proficiencies and class-based spell lists, each pokémon may learn moves from its species-based movepool.</p>
+          <ul>
+            <p>
+              <strong>Movepools. </strong>Pokémon characters may only learn moves from their movepool. This applies to both weapon attack moves and spell moves. A pokémon's movepool is species-dependent and class-independent. For example, a Sorcerer Pikachu and a Paladin Pikachu would both have the same movepool despite being different classes, because they are both Pikachu. At level 5, the Sorcerer Pikachu, being a full-caster, would have access to two 3rd-level spell slots, three 2nd-level spell slots, four 1st-level spell slots, and five cantrips. Meanwhile, the Paladin Pikachu, being a half-caster, would only have access to two 2nd-level spell slots and four 1st-level spell slots, although they would have Extra Attack at this point. The Sorcerer Pikachu would typically be better off using powerful spell moves from the Pikachu movepool, while the Paladin Pikachu would want to use a combination of weapon attack moves and lower-level spell moves. In the same way, a Circle of Stars Druid Clefairy and a Twilight Cleric Clefairy would both have access to the same movepool because they are both Clefairies. The differences would lie in the differing class features, subclass features, backgrounds, ability score differences, and role-playing flavor. I recommend using <a href="https://pokemonshowdown.com/">Pokémon Showdown</a>, <a href="https://www.serebii.net/pokemon/">Serebii.net</a>, or <a href="https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_National_Pok%C3%A9dex_number">Bulbapedia</a> to check up on the movepool of each pokémon during character creation and level-up. 
+            </p>
+            <p>
+              <strong>Weapon Attack Moves. </strong>These moves replace vanilla D&amp;D 5e weapons and can be used to make weapon attack actions. Each pokémon character may know up to four total weapon attack moves unless otherwise specified. Feats that grant spells do not grant additional weapon attack moves. These moves benefit from the Extra Attack feature and  different moves can be used for attacks made. For example, a Fighter Blaziken could use Fire Punch for their first attack and Blaze Kick for their second attack on their turn, given they were at the appropriate level to access to the Extra Attack feature. 
+            </p>
+            <p>
+              <strong>Spell Moves. </strong>These moves replace vanilla D&amp;D 5e spells. The limit for how many spell moves a pokémon character may learn is class-dependent. For example, Sorcerers know two spells at level 1, three spells at level 2, etc., while Paladins know a number of spells equal to their Charisma modifier + half their Paladin level, rounded down. These are independent of the 4-weapon-attack-move limit. For example, while Barbarians will know a maximum of four moves (all four being weapon attack moves) for the entirety of their campaign unless they multiclass or take certain feats to learn spells, Sorcerers would know their four weapon attack moves IN ADDITION to however many spell moves they would typically learn (again; two spells at level 1, three spells at level 2, etc.). Feats that grant spells do grant additional spell moves. Spell preparation classes, like the Cleric and Druid, can prepare different spell moves each day from their full movepool, while classes like Sorcerers and Warlocks know a fixed number of spells based on their class level, all according to each of their class' vanilla D&amp;D 5e conventions as usual. 
+            </p>
+          </ul>
+
+          <div class="cta-row">
+            <a class="cta" href="moves.html">Open the Moves List →</a>
+          </div>
+        </div>
+
+        <div class="section" id="different">
+          <h2>What else is different from vanilla D&amp;D 5e?</h2>
+          <ul>
+            <p><strong>Armor Class. </strong>To avoid complexity, I recommend setting a character's base AC to the starting armor that their class would get. For example, in vanilla 5e, Paladins begin with chain mail armor (16 AC) and Rogues begin with Leather Armor (11 + Dex AC). Pokémon do not typically wear armor, so this would be their naked AC and could potentially be augmented by held items or the sort. I do recommend adding +1 AC for every four player levels gained.</p> 
+            <p><strong>Species. </strong>Naturally, there are no Elves and Dwarves in 5émon. Instead of species traits, each Pokémon may choose an ability based on their potential abilities in the Pokémon games. For example, a Pikachu may have the Static or Lightning Rod ability. </p> 
+            <p><strong>Darkvision. </strong>Dark and Ghost type Pokémon have 60 foot darkvision naturally. Otherwise, darkvision and superior darkvision may be obtainable with a class feature, subclass feature, feat, ability, move, magic item, or otherwise. </p>
+            <p><strong>Damage Types. </strong>Instead of slashing, bludgeoning, etc. damage types, moves deal damage according to the move type. For example, Tackle deals Normal Damage and Night Slash Deals Dark Damage. </p>
+            <p><strong>Types. </strong>Vulnerability and Resistance apply as they do in the Pokémon games. For example, Charmander resists grass damage and therefore takes half damage from it, but is vulnerable to water damage and therefore takes double damage from it. The same is true for quad-resistances, and these stack with other sources of resistance such as a Barbarian's rage feature. For example, an Ursaring is vulnerable to Fighting damage and would usually take double damage from Fighting damage sources. However, if they were a Bear Totem Barbarian with rage active, they would only take regular damage from Fighting damage sources. </p>
+          </ul>
+        </div>
+
+        <div class="section" id="same">
+          <h2>What’s the same as vanilla D&amp;D 5e?</h2>
+          <ul>
+            <p><strong>Ability Scores. </strong>Allocate points to Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma as usual using Standard Array, Point Buy, or rolling for stats.</p>
+            <p><strong>Classes and Subclasses. </strong>Want to play as a Thief Rogue Meowth or a Berserker Barbarian Primeape? Go for it. </p>
+            <p><strong>Background. </strong>Pick a Background or create a custom one per the PHB.</p>
+            <p>... And everything else!</p>
+          </ul>
+        </div>
+
+        <div class="section" id="dms">
+          <h2>DM considerations</h2>
+          <ul>
+            <p><strong>Languages. </strong>Just as there aren't usually Elves and Dwarves in Pokémon, there aren't usually Elvish or Dwarvish languages. You will need to come up with conventions for handling languages. There should likely be some kind of Common language, and you could make a case for some typical D&amp;D languages like Undercommon or Celestial. Perhaps your world has countries and regions with custom languages of your own invention. However you go about it, make sure you let your players know prior to character creation so they can choose which languages to be proficient in. </p>
+            <p><strong>Monsters. </strong>I recommend finding classic monsters from the Monster Manual and reskinning them as Pokémon. For example, the Brown Bear can easily be reskinned to be an Ursaring where the bite attacks deal Dark Damage and the slashing attacks deal Normal Damage. I would avoid giving these opponents actual moves, as that would mess up the balance. Instead, just declare that the Brown Bear's bite attack is a bite move, have it do Dark Damage, and leave it at that. </p>
+            <p><strong>Armor. </strong>While the Armor Class section above states my recommendation for how to standardly handle AC in this system, you may opt for a world where Pokémon simply do wear armor that is fitted to them. In this case, let your players know that you will handle armor and AC as usual and that they can come up for what their armor looks like aesthetically. </p>
+            <p><strong>Damage Types Continued. </strong>You may cause environmental damage to your players. While something like falling rocks can easily be translated to Rock Damage, things like falling off a cliff and taking Fall Damage may occur. I reccoment just considering these happenings as Flat Damage and not considering things like resistances or vulnerabilities but this is up to your disgression. </p>
+            <p><strong>Movement. </strong> I recommend giving players movement speed that makes sense for them. It's always safe to give everyone a base of 30 feet of movement. I have a player playing as a Chinchou who wanted 5 feet of land movement speed and a 40 foot swim speed, to represent the fact that they are playing as a fish on land. I allowed this and we have been having fun with it. Handling flying speed is up to your disgression. Many pokémon can fly or float, which may be fun for some tables, and may be cumbersome for others (i.e. handling 3D combat with everyone flying around can be tricky, and some min-max style players may feel like they have to choose a flying pokémon to optimize or something). I recommend thinking about what works best for your table and discussing this with your players during a session 0.</p>    
+            </ul>
+          </div>
+          <div class="section" id="fun">
+          <h2>Have fun!</h2>
+          <ul>
+            <p>Thank you for reading and I hope you have fun with this system!</p> 
+            <p>
+              <em><strong>Disclaimer. </strong>5émon is an unofficial, fan-made homebrew adaptation. Pokémon is © Nintendo / Game Freak / The Pokémon Company. Dungeons & Dragons is © Wizards of the Coast. This project is neither affiliated with nor endorsed by any of the above rights holders. This material is provided for personal non-commercial use only.</em>
+            </p> 
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>
